@@ -1,298 +1,379 @@
-
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页 | 研究生/求职</title>
-    <!-- 使用柔和、专业的现代风格CSS -->
+    <title>韩宜霏 · 个人主页</title>
+    <!-- 简洁风格，适配 GitHub Pages -->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f7f9;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        /* 语言切换按钮 */
-        .lang-switch {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .lang-btn {
-            cursor: pointer;
-            padding: 8px 16px;
-            background: #e9ecef;
-            border: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #495057;
-            transition: all 0.2s;
-        }
-        .lang-btn:hover {
-            background: #007bff;
-            color: white;
-        }
-        .lang-btn.active {
-            background: #0056b3;
-            color: white;
-        }
-
-        /* 头部区域 */
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e9ecef;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #0056b3;
-            margin-bottom: 5px;
-        }
-        .subhead {
-            font-size: 1.2rem;
-            color: #6c757d;
-            margin-bottom: 15px;
-        }
-        .contact-info {
+            background: linear-gradient(145deg, #f8faff 0%, #f0f4fa 100%);
+            min-height: 100vh;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            gap: 20px;
-            font-size: 1rem;
-            color: #495057;
-        }
-        .contact-info i {
-            margin-right: 5px;
-            color: #007bff;
+            padding: 2rem 1.5rem;
         }
 
-        /* 通用区块样式 */
-        section {
-            margin-bottom: 30px;
-        }
-        h2 {
-            font-size: 1.8rem;
-            color: #0056b3;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #e9ecef;
-        }
         .card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #007bff;
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 20, 30, 0.25), 
+                        0 2px 8px rgba(0, 0, 0, 0.03);
+            padding: 2.2rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
         }
 
-        /* 技能标签 */
-        .skills {
+        /* 语言切换栏 */
+        .lang-bar {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+            justify-content: flex-end;
+            margin-bottom: 1.8rem;
         }
-        .skill-tag {
-            background: #e7f1ff;
-            color: #0056b3;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.95rem;
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
             font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 0.3px;
+            color: #2c3e4f;
         }
 
-        /* 教育经历条目 */
-        .edu-item {
-            margin-bottom: 15px;
-        }
-        .edu-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #333;
-        }
-        .edu-meta {
-            color: #6c757d;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
+        .lang-btn.active {
+            background: #1e2b36;
+            color: white;
+            box-shadow: 0 6px 12px rgba(0,20,30,0.12);
         }
 
-        /* 最后更新日期 */
-        .last-updated {
-            text-align: right;
-            font-size: 0.9rem;
-            color: #adb5bd;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #e9ecef;
+        .lang-btn:first-child {
+            margin-right: 0.5rem;
         }
 
-        /* 语言版本内容切换 */
+        .lang-btn:not(.active):hover {
+            background: rgba(0,0,0,0.04);
+        }
+
+        /* 内容切换容器 */
         .lang-content {
             display: block;
         }
-        .lang-content.en {
+
+        [data-lang="en"] {
             display: none;
         }
-        /* 当body有en类时，切换显示 */
-        body.en .lang-content.zh {
-            display: none;
+
+        /* 排版 */
+        .section {
+            margin-bottom: 2.5rem;
         }
-        body.en .lang-content.en {
-            display: block;
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            color: #1f2b36;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(57, 79, 96, 0.15);
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title span {
+            background: #d0ddee;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #1f3b4e;
+        }
+
+        .basic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem 1.8rem;
+            background: rgba(255,255,255,0.5);
+            border-radius: 1.8rem;
+            padding: 1.5rem 1.8rem;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .basic-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .basic-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            color: #546e7a;
+            margin-bottom: 0.2rem;
+        }
+
+        .basic-value {
+            font-size: 1.2rem;
+            font-weight: 550;
+            color: #0f202b;
+            word-break: break-word;
+        }
+
+        .basic-value a {
+            color: #0f4c6b;
+            text-decoration: none;
+            border-bottom: 1px dotted #7f9eb5;
+        }
+
+        .basic-value a:hover {
+            border-bottom: 2px solid #1b516e;
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #1f2c38;
+            background: rgba(235, 243, 255, 0.5);
+            padding: 1.5rem 1.8rem;
+            border-radius: 1.8rem;
+            border: 1px solid white;
+        }
+
+        .skills-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1rem;
+            background: rgba(255,255,255,0.5);
+            padding: 1.8rem 1.8rem;
+            border-radius: 2rem;
+            border: 1px solid white;
+        }
+
+        .skill-tag {
+            background: #1e2e3f;
+            color: white;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            box-shadow: 0 6px 12px rgba(0, 30, 40, 0.1);
+            transition: 0.15s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .skill-tag.light {
+            background: #aac0d9;
+            color: #10212e;
+        }
+
+        /* 脚注小提示 */
+        .foot-note {
+            margin-top: 2rem;
+            text-align: right;
+            font-size: 0.85rem;
+            color: #5a737d;
+            border-top: 1px dashed #bfd3e0;
+            padding-top: 1rem;
+        }
+
+        .foot-note i {
+            font-style: normal;
+            background: #e1ecf5;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+        }
+
+        @media (max-width: 550px) {
+            .card { padding: 1.5rem; }
+            .basic-grid { grid-template-columns: 1fr; }
+            .lang-bar { justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 语言切换按钮 -->
-        <div class="lang-switch">
-            <button class="lang-btn active" id="btn-zh">中文</button>
-            <button class="lang-btn" id="btn-en">English</button>
+    <div class="card">
+        <!-- 双语切换按钮 -->
+        <div class="lang-bar">
+            <button class="lang-btn active" id="btn-zh">🇨🇳 中文</button>
+            <button class="lang-btn" id="btn-en">🇬🇧 English</button>
         </div>
 
         <!-- 中文内容 -->
-        <div class="lang-content zh">
-            <header>
-                <h1>张明</h1>
-                <div class="subhead">数据科学硕士 | 研究兴趣：机器学习、经济预测</div>
-                <div class="contact-info">
-                    <span><i>📧</i> ming.zhang@university.edu</span>
-                    <span><i>📱</i> +86 123-4567-8901</span>
-                    <span><i>📍</i> 北京, 中国</span>
+        <div id="content-zh" class="lang-content" data-lang="zh" style="display: block;">
+            <!-- 基本信息 -->
+            <section class="section">
+                <div class="section-title">
+                    📋 基本信息 <span>BASIC</span>
                 </div>
-            </header>
-
-            <section>
-                <h2>个人简介</h2>
-                <div class="card">
-                    <p>我是北京大学数据科学专业的研二学生，导师是李华教授。我的研究聚焦于利用机器学习模型进行宏观经济预测，已在《统计研究》发表论文一篇。我热衷于将数据科学方法应用于实际经济问题，并具备扎实的统计学与编程基础。未来希望在经济预测或金融科技领域继续深造或工作。</p >
-                </div>
-            </section>
-
-            <section>
-                <h2>技能</h2>
-                <div class="skills">
-                    <span class="skill-tag">Python (Pandas, NumPy)</span>
-                    <span class="skill-tag">R / 计量经济学</span>
-                    <span class="skill-tag">SQL 数据库</span>
-                    <span class="skill-tag">机器学习 (Scikit-learn)</span>
-                    <span class="skill-tag">数据可视化 (Matplotlib, Tableau)</span>
-                    <span class="skill-tag">学术写作 / LaTeX</span>
-                    <span class="skill-tag">Stata / SPSS</span>
+                <div class="basic-grid">
+                    <div class="basic-item">
+                        <span class="basic-label">姓名</span>
+                        <span class="basic-value">韩宜霏</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="basic-label">学校</span>
+                        <span class="basic-value">华东政法大学</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="basic-label">专业</span>
+                        <span class="basic-value">金融学</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="basic-label">联系方式</span>
+                        <span class="basic-value"><a href=" ">fiona6282@icloud.com</a ></span>
+                    </div>
                 </div>
             </section>
 
-            <section>
-                <h2>教育经历</h2>
-                <div class="edu-item card">
-                    <div class="edu-title">北京大学 - 数据科学 理学硕士</div>
-                    <div class="edu-meta">2023年9月 - 至今 | 北京</div>
-                    <p>主修课程：高级机器学习、统计推断、时间序列分析、大数据计算。 GPA: 3.8/4.0</p >
+            <!-- 个人简介 -->
+            <section class="section">
+                <div class="section-title">
+                    ✍️ 个人简介 <span>PROFILE</span>
                 </div>
-                <div class="edu-item card">
-                    <div class="edu-title">南京大学 - 统计学 理学学士</div>
-                    <div class="edu-meta">2019年9月 - 2023年6月 | 南京</div>
-                    <p>主修课程：数学分析、概率论、数理统计、回归分析、数据库系统。 毕业论文：《基于LSTM的股票价格预测研究》获院级优秀论文。</p >
+                <div class="bio-text">
+                    华东政法大学金融学专业本科生，兼具法商思维的复合背景。对数据敏感，热爱将金融逻辑与编程工具结合，挖掘价值。相信用代码和相机都能定格这个世界的“决定性瞬间”。积极、自驱，乐于在团队中连接不同领域的想法。
                 </div>
             </section>
+
+            <!-- 技能 -->
+            <section class="section">
+                <div class="section-title">
+                    🛠️ 技能 <span>SKILLS</span>
+                </div>
+                <div class="skills-cloud">
+                    <span class="skill-tag">Python (Pandas / NumPy)</span>
+                    <span class="skill-tag light">摄影 · 人像/街景</span>
+                    <span class="skill-tag">金融分析 / 量化基础</span>
+                    <span class="skill-tag light">Lightroom 后期</span>
+                    <span class="skill-tag">Excel / Stata</span>
+                    <span class="skill-tag light">沟通与法商思维</span>
+                </div>
+            </section>
+
+            <!-- 额外价值点睛（可选） -->
+            <div class="foot-note">
+                <i>⚡ 快速了解：法商融合 · 数据故事 · 视觉表达</i>
+            </div>
         </div>
 
         <!-- 英文内容 -->
-        <div class="lang-content en">
-            <header>
-                <h1>Ming Zhang</h1>
-                <div class="subhead">M.Sc. in Data Science | Research Interests: ML, Economic Forecasting</div>
-                <div class="contact-info">
-                    <span><i>📧</i> ming.zhang@university.edu</span>
-                    <span><i>📱</i> +86 123-4567-8901</span>
-                    <span><i>📍</i> Beijing, China</span>
+        <div id="content-en" class="lang-content" data-lang="en" style="display: none;">
+            <!-- Basic Info -->
+            <section class="section">
+                <div class="section-title">
+                    📋 BASIC INFO <span>基本信息</span>
                 </div>
-            </header>
-
-            <section>
-                <h2>About Me</h2>
-                <div class="card">
-                    <p>I am a second-year M.Sc. student in Data Science at Peking University, supervised by Professor Hua Li. My research focuses on applying machine learning models for macroeconomic forecasting, and I have published a paper in *Statistical Research*. I am passionate about solving real-world economic problems with data science methods and possess a solid foundation in statistics and programming. I aim to pursue further study or a career in economic forecasting or fintech.</p >
-                </div>
-            </section>
-
-            <section>
-                <h2>Skills</h2>
-                <div class="skills">
-                    <span class="skill-tag">Python (Pandas, NumPy)</span>
-                    <span class="skill-tag">R / Econometrics</span>
-                    <span class="skill-tag">SQL Databases</span>
-                    <span class="skill-tag">Machine Learning (Scikit-learn)</span>
-                    <span class="skill-tag">Data Viz (Matplotlib, Tableau)</span>
-                    <span class="skill-tag">Academic Writing / LaTeX</span>
-                    <span class="skill-tag">Stata / SPSS</span>
+                <div class="basic-grid">
+                    <div class="basic-item">
+                        <span class="basic-label">Name</span>
+                        <span class="basic-value">Yifei (Fiona) Han</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="basic-label">University</span>
+                        <span class="basic-value">East China University of Political Science and Law</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="basic-label">Major</span>
+                        <span class="basic-value">Finance</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="basic-label">Contact</span>
+                        <span class="basic-value"><a href="mailto:fiona6282@icloud.com">fiona6282@icloud.com</a ></span>
+                    </div>
                 </div>
             </section>
 
-            <section>
-                <h2>Education</h2>
-                <div class="edu-item card">
-                    <div class="edu-title">Peking University - M.Sc. in Data Science</div>
-                    <div class="edu-meta">Sep 2023 - Present | Beijing</div>
-                    <p>Core Courses: Advanced Machine Learning, Statistical Inference, Time Series Analysis, Big Data Computing. GPA: 3.8/4.0</p >
+            <!-- Profile -->
+            <section class="section">
+                <div class="section-title">
+                    ✍️ PROFILE <span>个人简介</span>
                 </div>
-                <div class="edu-item card">
-                    <div class="edu-title">Nanjing University - B.Sc. in Statistics</div>
-                    <div class="edu-meta">Sep 2019 - Jun 2023 | Nanjing</div>
-                    <p>Core Courses: Mathematical Analysis, Probability Theory, Mathematical Statistics, Regression Analysis, Database Systems. Thesis: "Stock Price Prediction Based on LSTM" awarded departmental excellence.</p >
+                <div class="bio-text">
+                    Undergraduate Finance student at ECUPL with an interdisciplinary background combining law and business. 
+                    Sensitive to data, passionate about integrating financial logic with programming tools to uncover value. 
+                    Believes both code and camera can capture the "decisive moments" of the world. Proactive, self-driven, 
+                    and eager to connect ideas across different fields in a team.
                 </div>
             </section>
-        </div>
 
-        <!-- 最后更新日期 (自动生成) -->
-        <div class="last-updated">
-            最后更新 / Last updated: 2026年3月2日
+            <!-- Skills -->
+            <section class="section">
+                <div class="section-title">
+                    🛠️ SKILLS <span>技能</span>
+                </div>
+                <div class="skills-cloud">
+                    <span class="skill-tag">Python (Pandas / NumPy)</span>
+                    <span class="skill-tag light">Photography · Portrait/Street</span>
+                    <span class="skill-tag">Financial Analysis / Quant Basics</span>
+                    <span class="skill-tag light">Lightroom Post-processing</span>
+                    <span class="skill-tag">Excel / Stata</span>
+                    <span class="skill-tag light">Law & Business Mindset</span>
+                </div>
+            </section>
+
+            <!-- Extra value note -->
+            <div class="foot-note">
+                <i>⚡ Quick glimpse: Law & Finance · Data storytelling · Visual expression</i>
+            </div>
         </div>
     </div>
 
-    <!-- 简单的JavaScript实现语言切换 -->
+    <!-- 切换逻辑：干净、立即生效 -->
     <script>
-        const zhBtn = document.getElementById('btn-zh');
-        const enBtn = document.getElementById('btn-en');
-        const body = document.body;
+        (function() {
+            const btnZh = document.getElementById('btn-zh');
+            const btnEn = document.getElementById('btn-en');
+            const contentZh = document.getElementById('content-zh');
+            const contentEn = document.getElementById('content-en');
 
-        function setLanguage(lang) {
-            if (lang === 'zh') {
-                body.classList.remove('en');
-                zhBtn.classList.add('active');
-                enBtn.classList.remove('active');
-            } else {
-                body.classList.add('en');
-                enBtn.classList.add('active');
-                zhBtn.classList.remove('active');
+            function setActiveLang(lang) {
+                // 按钮激活样式切换
+                if (lang === 'zh') {
+                    btnZh.classList.add('active');
+                    btnEn.classList.remove('active');
+                    contentZh.style.display = 'block';
+                    contentEn.style.display = 'none';
+                } else {
+                    btnEn.classList.add('active');
+                    btnZh.classList.remove('active');
+                    contentEn.style.display = 'block';
+                    contentZh.style.display = 'none';
+                }
             }
-        }
 
-        zhBtn.addEventListener('click', () => setLanguage('zh'));
-        enBtn.addEventListener('click', () => setLanguage('en'));
+            btnZh.addEventListener('click', function(e) {
+                e.preventDefault();
+                setActiveLang('zh');
+            });
 
-        // 可选：根据浏览器语言设置初始语言
-        // const userLang = navigator.language || navigator.userLanguage; 
-        // if (userLang.startsWith('en')) setLanguage('en');
+            btnEn.addEventListener('click', function(e) {
+                e.preventDefault();
+                setActiveLang('en');
+            });
+
+            // 默认中文（已激活）
+        })();
     </script>
+
+    <!-- 保证邮箱可点击，视觉舒适；无多余第三方库，纯原生 -->
+    <!-- 设计上突出专业/简约，符合个人主页调性，让优势一目了然。 -->
 </body>
-  </html>
+</html>
